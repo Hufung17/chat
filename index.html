@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Chat Room</title>
+    <title>Online Chat Haven</title>
     <style>
         * {
             margin: 0;
@@ -12,137 +12,160 @@
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #fff;
         }
 
         #chat-container {
             width: 100%;
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            animation: fadeIn 0.5s ease-in;
+            animation: floatIn 0.8s ease-out;
         }
 
         #header {
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            font-weight: bold;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            padding: 20px;
             text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         #messages {
-            height: 500px;
+            height: 550px;
             overflow-y: auto;
-            padding: 25px;
-            background: #f9f9f9;
+            padding: 30px;
         }
 
         .message {
             margin: 15px 0;
-            padding: 12px 18px;
-            border-radius: 10px;
-            max-width: 70%;
-            word-wrap: break-word;
-            animation: slideIn 0.3s ease-out;
+            padding: 15px 20px;
+            border-radius: 15px;
+            max-width: 75%;
+            animation: popIn 0.4s ease-out;
             position: relative;
+            backdrop-filter: blur(5px);
         }
 
         .sent {
-            background: #4ecdc4;
-            color: white;
+            background: rgba(255, 107, 107, 0.9);
             margin-left: auto;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: white;
         }
 
         .received {
-            background: white;
-            color: #333;
+            background: rgba(255, 255, 255, 0.2);
             margin-right: auto;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: #feb47b;
         }
 
         .message::after {
             content: attr(data-time);
-            font-size: 0.7em;
+            font-size: 0.75em;
             opacity: 0.7;
             display: block;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         #input-area {
-            padding: 20px;
+            padding: 25px;
             display: flex;
             gap: 15px;
-            background: #fff;
-            border-top: 1px solid #eee;
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #username-input {
+            width: 150px;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1em;
         }
 
         #message-input {
             flex: 1;
-            padding: 12px;
-            border: 2px solid #ddd;
+            padding: 12px 20px;
+            border: none;
             border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             font-size: 1em;
-            transition: border-color 0.3s;
+            transition: background 0.3s;
         }
 
-        #message-input:focus {
+        #message-input:focus, #username-input:focus {
             outline: none;
-            border-color: #4ecdc4;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         #send-btn {
-            padding: 12px 30px;
-            background: #ff6b6b;
+            padding: 12px 35px;
+            background: #ff7e5f;
             color: white;
             border: none;
             border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, background 0.3s;
+            transition: all 0.3s;
         }
 
         #send-btn:hover {
-            background: #ff8787;
-            transform: scale(1.05);
+            background: #feb47b;
+            transform: translateY(-2px);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        /* Scrollbar styling */
         #messages::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         #messages::-webkit-scrollbar-thumb {
-            background: #4ecdc4;
-            border-radius: 4px;
+            background: #ff7e5f;
+            border-radius: 5px;
+        }
+
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
 <body>
     <div id="chat-container">
-        <div id="header">Chat Room</div>
+        <div id="header">Online Chat Haven</div>
         <div id="messages"></div>
         <div id="input-area">
+            <input type="text" id="username-input" placeholder="Your Name" value="You">
             <input type="text" id="message-input" placeholder="Type your message...">
             <button id="send-btn">Send</button>
         </div>
@@ -150,47 +173,65 @@
 
     <script>
         const messagesDiv = document.getElementById('messages');
+        const usernameInput = document.getElementById('username-input');
         const messageInput = document.getElementById('message-input');
         const sendBtn = document.getElementById('send-btn');
 
+        // Simulated users
+        const users = ['Alex', 'Sophie', 'Max', 'Emma', 'You'];
+        let lastSender = '';
+
         // Get current time
         function getTime() {
-            return new Date().toLocaleTimeString([], { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
         // Add message to chat
-        function addMessage(text, isSent) {
+        function addMessage(username, text, isSent) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add(isSent ? 'sent' : 'received');
-            messageDiv.textContent = text;
+            
+            const usernameSpan = document.createElement('div');
+            usernameSpan.classList.add('username');
+            usernameSpan.textContent = username;
+            
+            const textNode = document.createTextNode(text);
+            
+            messageDiv.appendChild(usernameSpan);
+            messageDiv.appendChild(textNode);
             messageDiv.setAttribute('data-time', getTime());
+            
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
         // Send message handler
         function sendMessage() {
+            const username = usernameInput.value.trim() || 'You';
             const text = messageInput.value.trim();
             if (text) {
-                addMessage(text, true);
+                addMessage(username, text, true);
                 messageInput.value = '';
 
-                // Simulate a reply with random messages
+                // Simulate other users responding
                 setTimeout(() => {
+                    let randomUser;
+                    do {
+                        randomUser = users[Math.floor(Math.random() * (users.length - 1))];
+                    } while (randomUser === lastSender || randomUser === username);
+                    
+                    lastSender = randomUser;
                     const replies = [
-                        "Hey, that's cool!",
-                        "Nice to chat with you!",
-                        "What do you think about that?",
-                        "Haha, good one!",
-                        "Totally agree!"
+                        `Hey ${username}, nice to see you!`,
+                        'What a great point!',
+                        'LOL, that’s hilarious!',
+                        'I totally get that.',
+                        `Hey ${username}, what’s up?`
                     ];
                     const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                    addMessage(randomReply, false);
-                }, 1000);
+                    addMessage(randomUser, randomReply, false);
+                }, 1500);
             }
         }
 
@@ -202,8 +243,11 @@
             }
         });
 
-        // Initial welcome message
-        addMessage('Welcome to our beautiful chat room! Start typing below.', false);
+        // Initial messages
+        addMessage('Sophie', 'Hey everyone, welcome to the chat!', false);
+        setTimeout(() => {
+            addMessage('Max', 'Hi there! Excited to be here.', false);
+        }, 1000);
     </script>
 </body>
 </html>
